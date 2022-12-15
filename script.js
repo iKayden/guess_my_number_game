@@ -1,5 +1,5 @@
 "use strict";
-
+const highscore = document.querySelector(".highscore");
 const againBtn = document.querySelector(".again");
 const body = document.querySelector("body");
 const message = document.querySelector(".message");
@@ -41,6 +41,7 @@ checkBtn.addEventListener("click", function() {
     number.style.width = "30rem";
     number.style.backgroundColor = "gold";
     number.textContent = randNumber;
+    if (setScore > highscore.textContent) highscore.textContent = setScore;
   } else if (guessValue > randNumber) {
     message.textContent = "Your guess is too high!";
     setScore--;
