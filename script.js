@@ -1,14 +1,18 @@
 "use strict";
 
+const againBtn = document.querySelector(".again");
 const message = document.querySelector(".message");
 const number = document.querySelector(".number");
 const score = document.querySelector(".score");
 
 const checkBtn = document.querySelector(".check");
 const randNumber = Math.trunc(Math.random() * 20) + 1;
-number.textContent = randNumber;
+
 let setScore = 20;
 
+againBtn.addEventListener("click", function() {
+  location.reload();
+});
 
 checkBtn.addEventListener("click", function() {
   const guessValue = Number(document.querySelector(".guess").value);
@@ -25,6 +29,7 @@ checkBtn.addEventListener("click", function() {
     document.querySelector('body').style.backgroundColor = "#60b347";
     number.style.width = "30rem";
     number.style.backgroundColor = "gold";
+    number.textContent = randNumber;
   } else if (guessValue > randNumber) {
     message.textContent = "Your guess is too high!";
     setScore--;
