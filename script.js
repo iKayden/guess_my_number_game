@@ -1,9 +1,12 @@
 "use strict";
 
 const againBtn = document.querySelector(".again");
+const body = document.querySelector("body");
 const message = document.querySelector(".message");
 const number = document.querySelector(".number");
 const score = document.querySelector(".score");
+const guessBox = document.querySelector(".guess");
+console.log(guessBox.value);
 
 const checkBtn = document.querySelector(".check");
 const randNumber = Math.trunc(Math.random() * 20) + 1;
@@ -11,7 +14,15 @@ const randNumber = Math.trunc(Math.random() * 20) + 1;
 let setScore = 20;
 
 againBtn.addEventListener("click", function() {
-  location.reload();
+  // game restart functionality
+  setScore = 20;
+  score.textContent = setScore;
+  body.style.backgroundColor = "#222";
+  number.style.width = "15rem";
+  number.style.backgroundColor = "#EEEEEE";
+  message.textContent = "Start guessing...";
+  guessBox.value = "";
+  number.textContent = "?";
 });
 
 checkBtn.addEventListener("click", function() {
@@ -26,7 +37,7 @@ checkBtn.addEventListener("click", function() {
 
   if (guessValue === randNumber) {
     message.textContent = "You guessed right! 🎉🎉🎉";
-    document.querySelector('body').style.backgroundColor = "#60b347";
+    body.style.backgroundColor = "#60b347";
     number.style.width = "30rem";
     number.style.backgroundColor = "gold";
     number.textContent = randNumber;
