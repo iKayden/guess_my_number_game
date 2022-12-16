@@ -6,23 +6,30 @@ const message = document.querySelector(".message");
 const number = document.querySelector(".number");
 const score = document.querySelector(".score");
 const guessBox = document.querySelector(".guess");
-console.log(guessBox.value);
 
 const checkBtn = document.querySelector(".check");
-let randNumber = Math.trunc(Math.random() * 20) + 1;
+function randNumber() {
+  const n = Math.floor(Math.random() * 20) + 1;
+  console.log(n);
+  return n;
+};
+const secretNumber = randNumber();
+const displayMsg = (msg) => {
+  message.textContent = msg;
+};
 
 let setScore = 20;
 let setHighsScore = 0;
 
 againBtn.addEventListener("click", function() {
   // game restart functionality
-  randNumber = Math.trunc(Math.random() * 20) + 1;
+  randNumber();
   setScore = 20;
   score.textContent = setScore;
   body.style.backgroundColor = "#222";
   number.style.width = "15rem";
   number.style.backgroundColor = "#EEEEEE";
-  message.textContent = "Start guessing...";
+  displayMsg("Start guessing...");
   guessBox.value = "";
   number.textContent = "?";
 });
@@ -30,30 +37,30 @@ againBtn.addEventListener("click", function() {
 checkBtn.addEventListener("click", function() {
   const guessValue = Number(document.querySelector(".guess").value);
 
-  if (!guessValue) {
-    return message.textContent = "❌ No number!";
+  if (guessValue <= 0) {
+    return displayMsg("❌ Use numbers from 1 to 20!");
   }
   if (!setScore) {
-    return message.textContent = "💥💥💥You've lost! Try again!";
+    return displayMsg("💥💥💥You've lost! Try again!");
   }
-  //winning logic
-  if (guessValue === randNumber) {
-    message.textContent = "You guessed right! 🎉🎉🎉";
+
+  if (guessValue === secretNumber) {
+    //winning logic
+    displayMsg("🎉🎉🎉 You guessed right!");
     body.style.backgroundColor = "#60b347";
     number.style.width = "30rem";
     number.style.backgroundColor = "gold";
-    number.textContent = randNumber;
+    number.textContent = secretNumber;
     //high score logic
     if (setScore > setHighsScore) {
       setHighsScore = setScore;
       highScore.textContent = setHighsScore;
     }
-  } else if (guessValue > randNumber) {
-    message.textContent = "Your guess is too high!";
-    setScore--;
-    score.textContent = setScore;
-  } else if (guessValue < randNumber) {
-    message.textContent = "Your guess is too low!";
+  } else if (guessValue !== secretNumber) {
+    // wrong guess logic
+    displayMsg(guessValue > secretNumber ?
+      "☝️Your guess is too high!" :
+      "👇Your guess is too low!");
     setScore--;
     score.textContent = setScore;
   }
