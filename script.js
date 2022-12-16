@@ -1,5 +1,5 @@
 "use strict";
-const highscore = document.querySelector(".highscore");
+const highScore = document.querySelector(".highscore");
 const againBtn = document.querySelector(".again");
 const body = document.querySelector("body");
 const message = document.querySelector(".message");
@@ -9,12 +9,14 @@ const guessBox = document.querySelector(".guess");
 console.log(guessBox.value);
 
 const checkBtn = document.querySelector(".check");
-const randNumber = Math.trunc(Math.random() * 20) + 1;
+let randNumber = Math.trunc(Math.random() * 20) + 1;
 
 let setScore = 20;
+let setHighsScore = 0;
 
 againBtn.addEventListener("click", function() {
   // game restart functionality
+  randNumber = Math.trunc(Math.random() * 20) + 1;
   setScore = 20;
   score.textContent = setScore;
   body.style.backgroundColor = "#222";
@@ -34,14 +36,18 @@ checkBtn.addEventListener("click", function() {
   if (!setScore) {
     return message.textContent = "💥💥💥You've lost! Try again!";
   }
-
+  //winning logic
   if (guessValue === randNumber) {
     message.textContent = "You guessed right! 🎉🎉🎉";
     body.style.backgroundColor = "#60b347";
     number.style.width = "30rem";
     number.style.backgroundColor = "gold";
     number.textContent = randNumber;
-    if (setScore > highscore.textContent) highscore.textContent = setScore;
+    //high score logic
+    if (setScore > setHighsScore) {
+      setHighsScore = setScore;
+      highScore.textContent = setHighsScore;
+    }
   } else if (guessValue > randNumber) {
     message.textContent = "Your guess is too high!";
     setScore--;
