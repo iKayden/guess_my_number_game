@@ -9,15 +9,13 @@ const guessBox = document.querySelector(".guess");
 
 const checkBtn = document.querySelector(".check");
 function randNumber() {
-  const n = Math.floor(Math.random() * 20) + 1;
-  console.log(n);
-  return n;
+  return Math.floor(Math.random() * 20) + 1;
 };
-const secretNumber = randNumber();
 const displayMsg = (msg) => {
   message.textContent = msg;
 };
 
+const secretNumber = randNumber();
 let setScore = 20;
 let setHighsScore = 0;
 
